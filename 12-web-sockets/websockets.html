@@ -1,0 +1,23 @@
+<!-- websockets.html -->
+<input id="input" type="text" />
+<button onclick="send()">Send</button>
+<pre id="output"></pre>
+
+<script>
+    const input = document.getElementById("input");
+    const output = document.getElementById("output");
+    const socket = new WebSocket("ws://localhost:8080/echo");
+
+    socket.onopen = () => {
+        output.innerHTML += "Status: Connected\n";
+    };
+
+    socket.onmessage = (e) => {
+        output.innerHTML += "Server: " + e.data + "\n";
+    };
+
+    function send() {
+        socket.send(input.value);
+        input.value = "";
+    }
+</script>
